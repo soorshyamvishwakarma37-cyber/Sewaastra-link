@@ -1,0 +1,214 @@
+ <!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SewaAstra Official ID</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f0f4f8; margin: 0; padding: 10px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .id-card {
+            width: 100%;
+            max-width: 360px;
+            background: white;
+            border-radius: 35px;
+            overflow: hidden;
+            border: 3px solid #0a9447;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .header-green {
+            background: #0a9447;
+            height: 180px;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 50% 15px;
+            border-bottom-right-radius: 50% 15px;
+        }
+
+        .photo-border {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 5px solid #ffcc00;
+            margin: -65px auto 0;
+            background: white;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .info-table { width: 100%; padding: 0 25px; margin-top: 15px; }
+        .info-row { display: flex; border-bottom: 1px solid #f1f1f1; padding: 10px 0; font-size: 13px; }
+        .label { width: 90px; font-weight: 800; color: #0a9447; text-transform: uppercase; font-size: 11px; }
+        .value { font-weight: 700; color: #2d3748; }
+
+        .barcode {
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(90deg, #000 1px, transparent 1px, transparent 3px, #000 3px, #000 4px, transparent 4px);
+            background-size: 6px 100%;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-35deg);
+            font-size: 45px;
+            font-weight: 900;
+            color: rgba(10, 148, 71, 0.04);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 5px;
+        }
+        .hidden { display: none !important; }
+
+        /* Admin UI */
+        .admin-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 14px; }
+        input:focus { border-color: #0a9447; }
+    </style>
+</head>
+<body>
+
+    <div id="displayCard" class="id-card hidden">
+        <div class="watermark">SEWAASTRA</div>
+        <div class="header-green">
+            <div class="flex items-center justify-center gap-2 mb-3">
+                <div class="bg-white p-1 rounded-lg"><i class="fas fa-tools text-[#0a9447] text-xl"></i></div>
+                <h1 class="text-2xl font-black text-white tracking-tight">SewaAstra</h1>
+            </div>
+            <div class="inline-flex items-center bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-white/30">
+                <i class="fas fa-shield-alt mr-1"></i> Verified Partner
+            </div>
+        </div>
+
+        <div class="photo-border">
+            <img id="viewImg" src="" class="w-full h-full object-cover">
+        </div>
+
+        <div class="text-center mt-3 px-4">
+            <h2 class="text-xl font-extrabold text-slate-800 flex items-center justify-center gap-1">
+                <span id="viewName">Partner Name</span>
+                <i class="fas fa-check-circle text-blue-500 text-xs"></i>
+            </h2>
+            <p id="viewRole" class="text-green-600 font-bold text-[11px] uppercase tracking-widest mt-1">Sewa Expert</p>
+        </div>
+
+        <div class="info-table">
+            <div class="info-row"><span class="label">Identity</span><span class="value">: <span id="viewID">---</span></span></div>
+            <div class="info-row"><span class="label">Contact</span><span class="value">: <span id="viewPhone">---</span></span></div>
+            <div class="info-row"><span class="label">City</span><span class="value">: <span id="viewLoc">---</span></span></div>
+            <div class="info-row border-none"><span class="label">Blood Gr.</span><span class="value">: <span id="viewBlood">---</span></span></div>
+        </div>
+
+        <div class="px-8 mt-4 mb-4 flex justify-between items-end">
+            <div class="text-center border-t border-gray-200 pt-1 min-w-[80px]">
+                <p class="text-[9px] font-serif italic text-blue-900" id="signName">Signature</p>
+                <p class="text-[7px] font-bold text-gray-400 uppercase">Authorized</p>
+            </div>
+            <div class="w-10 h-10 rounded-full border-2 border-[#0a9447] flex items-center justify-center">
+                <div class="text-[7px] font-black text-[#0a9447] text-center leading-tight">SEWA<br>ASTRA</div>
+            </div>
+        </div>
+
+        <div class="p-3 bg-gray-50 border-t border-gray-100">
+            <div class="barcode"></div>
+            <p class="text-[7px] text-center font-bold text-gray-400 mt-1 uppercase tracking-widest">Officially Verified by SewaAstra India</p>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="admin-box">
+        <h2 class="text-xl font-black text-green-700 mb-5 flex items-center gap-2">
+            <i class="fas fa-id-card"></i> SewaAstra ID Maker
+        </h2>
+        <input type="file" id="fileInput" accept="image/*" class="text-xs">
+        <input type="text" id="inName" placeholder="Full Name">
+        <input type="text" id="inRole" placeholder="Role (e.g. Service Partner)">
+        <input type="text" id="inID" placeholder="ID Number (e.g. SA-550)">
+        <input type="text" id="inPhone" placeholder="Phone Number">
+        <input type="text" id="inLoc" placeholder="City Name">
+        <input type="text" id="inBlood" placeholder="Blood Group">
+        
+        <button onclick="generateLink()" class="w-full bg-[#0a9447] text-white font-bold py-3 rounded-xl shadow-lg mt-2 active:scale-95 transition-transform">GENERATE PREMIUM LINK</button>
+        
+        <div id="result" class="hidden mt-5 pt-4 border-t border-dashed border-gray-300">
+            <p class="text-[10px] font-bold text-green-600 mb-1">Copy this link and open in any browser:</p>
+            <textarea id="urlOutput" class="w-full p-2 text-[10px] bg-gray-50 border rounded-lg h-16 mb-2" readonly></textarea>
+            <button onclick="copyURL()" class="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-bold">COPY URL</button>
+        </div>
+    </div>
+
+    <script>
+        let base64Image = "";
+
+        // Photo load and compress
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = 250; canvas.height = 250;
+                    ctx.drawImage(img, 0, 0, 250, 250);
+                    base64Image = canvas.toDataURL('image/jpeg', 0.6);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function generateLink() {
+            const data = {
+                n: document.getElementById('inName').value,
+                r: document.getElementById('inRole').value,
+                i: document.getElementById('inID').value,
+                p: document.getElementById('inPhone').value,
+                l: document.getElementById('inLoc').value,
+                b: document.getElementById('inBlood').value,
+                img: base64Image
+            };
+            const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+            const finalUrl = window.location.origin + window.location.pathname + '?' + encodedData;
+            document.getElementById('urlOutput').value = finalUrl;
+            document.getElementById('result').classList.remove('hidden');
+        }
+
+        function copyURL() {
+            const area = document.getElementById("urlOutput");
+            area.select();
+            document.execCommand("copy");
+            alert("Link Copy Ho Gaya!");
+        }
+
+        window.onload = () => {
+            const query = window.location.search.substring(1);
+            if (query.length > 50) {
+                try {
+                    const data = JSON.parse(decodeURIComponent(escape(atob(query))));
+                    document.getElementById('adminPanel').classList.add('hidden');
+                    document.getElementById('displayCard').classList.remove('hidden');
+                    
+                    document.getElementById('viewName').innerText = data.n;
+                    document.getElementById('signName').innerText = data.n;
+                    document.getElementById('viewRole').innerText = data.r;
+                    document.getElementById('viewID').innerText = data.i;
+                    document.getElementById('viewPhone').innerText = data.p;
+                    document.getElementById('viewLoc').innerText = data.l;
+                    document.getElementById('viewBlood').innerText = data.b;
+                    document.getElementById('viewImg').src = data.img;
+                } catch(e) { console.log("Creator Mode"); }
+            }
+        };
+    </script>
+</body>
+</html>
